@@ -1,0 +1,17 @@
+# German texts of SEO: the screen and the hints of the check (decision 0223).
+"SEO": "SEO"
+"Sitemap, robots.txt, Open Graph, structured data and a check of every page": "Sitemap, robots.txt, Open Graph, strukturierte Daten und eine Prüfung jeder Seite"
+"What search engines show of each page. You change title and description in the settings of the page.": "Was Suchmaschinen von jeder Seite zeigen. Titel und Beschreibung änderst Du in den Einstellungen der Seite."
+"No page has a warning.": "Keine Seite hat eine Warnung."
+"{count} page with hints": { one: "{count} Seite mit Hinweisen", other: "{count} Seiten mit Hinweisen" }
+"{count} page without hints": { one: "{count} Seite ohne Hinweise", other: "{count} Seiten ohne Hinweise" }
+"Pages in this language appear here.": "Seiten in dieser Sprache erscheinen hier."
+"Notice": "Hinweis"
+"Excluded from search engines, so it is not in sitemap.xml either.": "Von Suchmaschinen ausgenommen und deshalb auch nicht in sitemap.xml."
+"No description. Search engines then show some text of the page.": "Keine Beschreibung. Suchmaschinen zeigen dann irgendeinen Text der Seite."
+"The description has only {count} characters. 50 to 160 fit best.": "Die Beschreibung hat nur {count} Zeichen. Am besten passen 50 bis 160."
+"The description has {count} characters. From about 160, search engines cut it.": "Die Beschreibung hat {count} Zeichen. Ab etwa 160 schneiden Suchmaschinen sie ab."
+"The title in search results has {count} characters with the name of the website. From about 60, search engines cut it.": "Der Titel in Suchergebnissen hat mit dem Namen der Website {count} Zeichen. Ab etwa 60 schneiden Suchmaschinen ihn ab."
+"The same title as the page \"{page}\".": "Derselbe Titel wie die Seite „{page}“."
+"The same description as the page \"{page}\".": "Dieselbe Beschreibung wie die Seite „{page}“."
+"Checks title and description of the pages for search engines: missing, too short, too long or the same as on another page": "Prüft Titel und Beschreibung der Seiten für Suchmaschinen: fehlt, zu kurz, zu lang oder wie auf einer anderen Seite"

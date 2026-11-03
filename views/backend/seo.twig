@@ -1,0 +1,66 @@
+{#- The screen "SEO": hints for title and description of every page (decision 0223). -#}
+{% extends '@backend/layout.twig' %}
+{% import '@backend/ui.twig' as ui %}
+
+{% block title %}{{ t('SEO') }}{% endblock %}
+
+{% block content %}
+<div class="fb-stack fb-stack--lg">
+    <header class="fb-page-header">
+        <div class="fb-page-header__text">
+            <h1 class="fb-heading-1">{{ t('SEO') }}</h1>
+            <p class="fb-muted">{{ t('What search engines show of each page. You change title and description in the settings of the page.') }}</p>
+        </div>
+        <div class="fb-cluster">{{ ui.button({label: 'sitemap.xml', href: path('frootbox.seo.sitemap'), variant: 'outline', icon: 'external', attrs: {target: '_blank'}}) }}</div>
+    </header>
+
+    {% if warnings == 0 %}
+        {{ ui.alert({tone: 'success', text: t('No page has a warning.'), live: 'none'}) }}
+    {% endif %}
+
+    {% for group in groups %}
+    {% set id = 'seo-' ~ group.language.code %}
+    <section class="fb-card" aria-labelledby="{{ id }}-title">
+        <div class="fb-card__header">
+            <h2 class="fb-heading-4" id="{{ id }}-title">{{ groups|length > 1 ? group.language.title : t('Pages') }}</h2>
+            {{ ui.badge(group.hints is empty ? 'published' : 'neutral', t(['{count} page with hints', '{count} pages with hints'], {count: group.hints|length})) }}
+        </div>
+        {% if group.hints is empty and group.fine is empty %}
+        <div class="fb-card__body">{{ ui.empty({icon: 'pages', title: t('No pages yet'), text: t('Pages in this language appear here.')}) }}</div>
+        {% endif %}
+        {% if group.hints is not empty %}
+        <ul>
+            {%- for check in group.hints %}
+            <li class="fb-list__item">
+                <span class="fb-list__main">
+                    <a class="fb-list__title fb-list__link" href="{{ path('backend.pages.show', {id: check.id}) }}?language={{ check.language }}" lang="{{ check.language }}" dir="{{ group.language.direction.value }}">{{ check.title }}</a>
+                    <span class="fb-list__meta" lang="{{ check.language }}" dir="{{ group.language.direction.value }}">{{ check.searchTitle }}{% if check.description %} · {{ (check.description|length > 100 ? check.description|slice(0, 100) ~ ' …' : check.description) }}{% endif %}</span>
+                    {%- for hint in check.hints %}
+                    <span class="fb-list__meta">{{ ui.badge(hint.level.value == 'warning' ? 'danger' : 'neutral', hint.level.value == 'warning' ? t('Warning') : t('Notice')) }} {{ t(hint.message, hint.params) }}</span>
+                    {%- endfor %}
+                </span>
+                {{ ui.status(check.status.value) }}
+            </li>
+            {%- endfor %}
+        </ul>
+        {% endif %}
+        {% if group.fine is not empty %}
+        <details class="fb-disclosure">
+            <summary class="fb-disclosure__summary">{{ t(['{count} page without hints', '{count} pages without hints'], {count: group.fine|length}) }}</summary>
+            <ul>
+                {%- for check in group.fine %}
+                <li class="fb-list__item">
+                    <span class="fb-list__main">
+                        <a class="fb-list__title fb-list__link" href="{{ path('backend.pages.show', {id: check.id}) }}?language={{ check.language }}" lang="{{ check.language }}" dir="{{ group.language.direction.value }}">{{ check.title }}</a>
+                        <span class="fb-list__meta" lang="{{ check.language }}" dir="{{ group.language.direction.value }}">{{ (check.description|length > 100 ? check.description|slice(0, 100) ~ ' …' : check.description) }}</span>
+                    </span>
+                    {{ ui.status(check.status.value) }}
+                </li>
+                {%- endfor %}
+            </ul>
+        </details>
+        {% endif %}
+    </section>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{
+    "name": "frootbox/seo",
+    "description": "SEO for the Frootbox CMS: sitemap, robots.txt, Open Graph, structured data and a check of every page",
+    "type": "frootbox-extension",
+    "license": "MIT",
+    "keywords": [
+        "cms",
+        "frootbox",
+        "seo",
+        "sitemap",
+        "open-graph"
+    ],
+    "require": {
+        "php": ">=8.5",
+        "frootbox/core": "^0.1",
+        "frootbox/database": "^0.1",
+        "frootbox/rich-text": "^0.1",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^2.0",
+        "psr/http-server-handler": "^1.0"
+    },
+    "suggest": {
+        "frootbox/backend": "The screen \"SEO\" with the check of every page"
+    },
+    "autoload": {
+        "psr-4": {
+            "Frootbox\\Seo\\": "src/",
+            "Frootbox\\Seo\\Migrations\\": "migrations/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Frootbox\\Seo\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.1.x-dev"
+        }
+    }
+}
