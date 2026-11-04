@@ -31,6 +31,8 @@ final readonly class PageCheck
         /** Left out by search engines, see page.update */
         public bool $excluded,
         public array $hints,
+        /** The title of its own for search engines, empty for the default one (decision 0266) */
+        public string $seoTitle = '',
     ) {}
 
     public function warnings(): int

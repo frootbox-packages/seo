@@ -10,7 +10,10 @@ search results and its description. Pages with hints come first.
 ## Title and description
 
 The title in search results is the title of the page and the name of
-the website. From about 60 characters, search engines cut it.
+the website. From about 60 characters, search engines cut it. To choose
+it yourself, e.g. with a search term, write it in the settings of the
+page under **Title for search engines**. It then replaces the whole
+title, also when sharing, so add the name of the website if you want it.
 
 The description is the short text below it. Write it in the settings
 of the page, under **Description for search engines**. 50 to 160

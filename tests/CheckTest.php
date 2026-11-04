@@ -67,4 +67,28 @@ final class CheckTest extends SeoTestCase
         self::assertSame('title_duplicate', $hints[0]->hints[0]->code);
         self::assertSame(['page' => 'Kontakt'], $hints[0]->hints[0]->params);
     }
+
+    public function testATitleOfItsOwnIsWhatCounts(): void
+    {
+        $start = $this->page(null, ['de' => 'Start'], ['de' => 'Die Startseite der Rösterei mit allem, was es Neues gibt.']);
+        $shop = $this->page($start, ['de' => 'Laden'], ['de' => 'Unser Laden in der Altstadt mit Kaffee, Kuchen und Kursen.']);
+        $courses = $this->page($start, ['de' => 'Kurse'], ['de' => 'Kurse für Siebträger, Filter und Latte Art, jeden Monat neu.']);
+        $this->runner()->run(new UpdatePage($shop, ['de' => ['seoTitle' => 'Kaffee in Münster']]));
+        $this->runner()->run(new UpdatePage($courses, ['de' => ['seoTitle' => 'Kaffee in Münster: Kurse für Siebträger, Filter und Latte Art jeden Monat']]));
+
+        $checks = [];
+
+        foreach ($this->runner()->ask(new CheckPages()) as $check) {
+            $checks[$check->title] = [$check->searchTitle, $check->seoTitle, array_map(static fn(Hint $hint): string => $hint->code, $check->hints)];
+        }
+
+        self::assertSame(['Kaffee in Münster', 'Kaffee in Münster', []], $checks['Laden'], 'Exactly the title of its own.');
+        self::assertSame(['title_long'], $checks['Kurse'][2], 'Measured without the name of the website.');
+        self::assertSame(['Testsite', '', []], $checks['Start']);
+
+        $this->runner()->run(new UpdatePage($courses, ['de' => ['seoTitle' => 'kaffee in  Münster']]));
+        $hints = $this->runner()->ask(new CheckPages($courses))[0]->hints;
+        self::assertSame('title_duplicate', $hints[0]->code, 'The same in search results, though the pages have other titles.');
+        self::assertSame(['page' => 'Laden'], $hints[0]->params);
+    }
 }

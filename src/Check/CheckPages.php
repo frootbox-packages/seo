@@ -68,7 +68,8 @@ final readonly class CheckPages implements Query
                 }
             }
 
-            $titles = self::count(array_map(static fn(array $page): string => $page[1]->title, $pages));
+            // The same title in search results, so a title of its own counts (decision 0266).
+            $titles = self::count(array_map(static fn(array $page): string => $page[1]->searchTitle($site, null === $page[0]->data->parentId), $pages));
             $descriptions = self::count(array_map(static fn(array $page): string => $page[1]->description, $pages));
 
             foreach ($pages as $id => [$node, $translation]) {
@@ -77,12 +78,12 @@ final readonly class CheckPages implements Query
                 }
 
                 $excluded = null !== ($visibility[$id] ?? null)?->excludedFromSearchEnginesBy;
-                $searchTitle = null === $node->data->parentId ? $site : $translation->title . ' – ' . $site;
+                $searchTitle = $translation->searchTitle($site, null === $node->data->parentId);
                 $hints = $excluded
                     ? [new Hint('excluded', HintLevel::Notice, 'Excluded from search engines, so it is not in sitemap.xml either.')]
-                    : self::hints($id, $searchTitle, $translation->title, $translation->description, $titles, $descriptions, $pages);
+                    : self::hints($id, $searchTitle, '' !== $translation->seoTitle, $translation->description, $titles, $descriptions, $pages);
 
-                $checks[] = new PageCheck($id, $language, $node->status, $translation->title, $searchTitle, $translation->description, $excluded, $hints);
+                $checks[] = new PageCheck($id, $language, $node->status, $translation->title, $searchTitle, $translation->description, $excluded, $hints, $translation->seoTitle);
             }
         }
 
@@ -98,7 +99,7 @@ final readonly class CheckPages implements Query
      *
      * @return list<Hint>
      */
-    private static function hints(string $id, string $searchTitle, string $title, string $description, array $titles, array $descriptions, array $pages): array
+    private static function hints(string $id, string $searchTitle, bool $own, string $description, array $titles, array $descriptions, array $pages): array
     {
         $hints = [];
         $length = mb_strlen($description);
@@ -112,10 +113,12 @@ final readonly class CheckPages implements Query
         }
 
         if (mb_strlen($searchTitle) > self::TITLE_MAX) {
-            $hints[] = new Hint('title_long', HintLevel::Notice, 'The title in search results has {count} characters with the name of the website. From about 60, search engines cut it.', ['count' => mb_strlen($searchTitle)]);
+            $hints[] = $own
+                ? new Hint('title_long', HintLevel::Notice, 'The title for search engines has {count} characters. From about 60, search engines cut it.', ['count' => mb_strlen($searchTitle)])
+                : new Hint('title_long', HintLevel::Notice, 'The title in search results has {count} characters with the name of the website. From about 60, search engines cut it.', ['count' => mb_strlen($searchTitle)]);
         }
 
-        $other = self::other($id, $titles[self::key($title)] ?? []);
+        $other = self::other($id, $titles[self::key($searchTitle)] ?? []);
 
         if (null !== $other) {
             $hints[] = new Hint('title_duplicate', HintLevel::Warning, 'The same title as the page "{page}".', ['page' => $pages[$other][1]->title]);

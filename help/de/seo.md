@@ -9,6 +9,10 @@ oben.
 
 Der Titel in Suchergebnissen besteht aus dem Titel der Seite und dem
 Namen der Website. Ab etwa 60 Zeichen schneiden Suchmaschinen ihn ab.
+Willst Du ihn selbst wählen, z. B. mit einem Suchbegriff, schreib ihn in
+den Einstellungen der Seite unter **Titel für Suchmaschinen**. Er
+ersetzt dann den ganzen Titel, auch beim Teilen, schreib also den Namen
+der Website dazu, wenn Du ihn willst.
 
 Die Beschreibung ist der kurze Text darunter. Du schreibst sie in den
 Einstellungen der Seite unter **Beschreibung für Suchmaschinen**. Am

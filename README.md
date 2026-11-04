@@ -14,7 +14,8 @@ SEO for the [Frootbox CMS](https://github.com/Frootbox/frootbox):
   with hints for each page: title and description missing, too short,
   too long or the same as on another page
 
-The description of a page itself belongs to the core, so it can be
-written without this module.
+The description of a page and its own title for search engines
+(`seoTitle`, which replaces the whole `<title>`) belong to the core, so
+they can be written without this module.
 
 MIT licensed.

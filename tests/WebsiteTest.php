@@ -96,6 +96,13 @@ final class WebsiteTest extends SeoTestCase
 
         $html = $this->html('/ueber-uns');
         self::assertStringContainsString('<meta property="og:description" content="Wer wir sind &amp; was wir rösten.">', $html);
+        self::assertStringContainsString('<meta property="og:title" content="Über uns">', $html);
+
+        $this->runner()->run(new UpdatePage($about, ['de' => ['seoTitle' => 'Die Rösterei in Münster']]));
+        $this->runner()->run(new PublishPages([$about]));
+        self::assertStringContainsString('<meta property="og:title" content="Die Rösterei in Münster">', $this->html('/ueber-uns'), 'A title of its own is the one to share.');
+
+        $html = $this->html('/ueber-uns');
         self::assertStringContainsString('<meta name="twitter:card" content="summary">', $html, 'No image on the page.');
         self::assertStringContainsString('<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://example.org/"},{"@type":"ListItem","position":2,"name":"Über uns","item":"https://example.org/ueber-uns"}]}</script>', $html);
     }

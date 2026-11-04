@@ -12,6 +12,7 @@
 "The description has only {count} characters. 50 to 160 fit best.": "Die Beschreibung hat nur {count} Zeichen. Am besten passen 50 bis 160."
 "The description has {count} characters. From about 160, search engines cut it.": "Die Beschreibung hat {count} Zeichen. Ab etwa 160 schneiden Suchmaschinen sie ab."
 "The title in search results has {count} characters with the name of the website. From about 60, search engines cut it.": "Der Titel in Suchergebnissen hat mit dem Namen der Website {count} Zeichen. Ab etwa 60 schneiden Suchmaschinen ihn ab."
+"The title for search engines has {count} characters. From about 60, search engines cut it.": "Der Titel für Suchmaschinen hat {count} Zeichen. Ab etwa 60 schneiden Suchmaschinen ihn ab."
 "The same title as the page \"{page}\".": "Derselbe Titel wie die Seite „{page}“."
 "The same description as the page \"{page}\".": "Dieselbe Beschreibung wie die Seite „{page}“."
 "Checks title and description of the pages for search engines: missing, too short, too long or the same as on another page": "Prüft Titel und Beschreibung der Seiten für Suchmaschinen: fehlt, zu kurz, zu lang oder wie auf einer anderen Seite"

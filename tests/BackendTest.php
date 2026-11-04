@@ -50,6 +50,7 @@ final class BackendTest extends BackendTestCase
         $page = $this->html($this->request('GET', '/cms/pages/' . $start, session: $session));
         self::assertStringContainsString('name="translations.de.description"', $page, 'The description is written in the settings of the page.');
         self::assertStringContainsString('Frisch geröstete Bohnen aus Münster, jede Woche neu, im Laden und online.</textarea>', $page);
+        self::assertMatchesRegularExpression('~<input[^>]+name="translations\.de\.seoTitle"[^>]+placeholder="Testsite"~', $page, 'The title for search engines shows the one that holds without it.');
 
         $this->action('page.update', ['id' => $start, 'translations' => ['de' => ['title' => 'Start', 'description' => 'Neu geschrieben, damit Suchmaschinen und Netzwerke einen guten Text zeigen.']]], $session);
         self::assertStringContainsString('Neu geschrieben, damit Suchmaschinen', $this->html($this->request('GET', '/cms/seo', session: $session)), 'The check reads the draft.');
