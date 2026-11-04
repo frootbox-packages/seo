@@ -1,3 +1,5 @@
 title: SEO
 description: Sitemap, robots.txt, Open Graph, structured data and a check of every page
 extension: Frootbox\Seo\SeoExtension
+# For the extension directory (decision 0282).
+icon: icon.svg

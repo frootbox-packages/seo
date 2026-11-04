@@ -10,6 +10,12 @@
         "sitemap",
         "open-graph"
     ],
+    "homepage": "https://github.com/Frootbox/frootbox/tree/main/packages/modules/seo",
+    "support": {
+        "issues": "https://github.com/Frootbox/frootbox/issues",
+        "source": "https://github.com/frootbox-packages/seo",
+        "docs": "https://github.com/Frootbox/frootbox/tree/main/documentation"
+    },
     "require": {
         "php": ">=8.5",
         "frootbox/core": "^0.1",
