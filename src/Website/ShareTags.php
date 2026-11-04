@@ -94,10 +94,12 @@ final readonly class ShareTags
         }
 
         $formats = $this->urls->formats($medium);
+        // The fallback format, JPEG or PNG, comes last: not every network reads AVIF or WebP.
+        $url = $this->urls->url($medium, $width, 0, array_pop($formats) ?? 'jpg');
 
         return [
-            // The fallback format, JPEG or PNG, comes last: not every network reads AVIF or WebP.
-            'url' => $origin . $this->urls->url($medium, $width, 0, array_pop($formats) ?? 'jpg'),
+            // A public bucket has its own host (decision 0268).
+            'url' => MediaUrls::isAbsolute($url) ? $url : $origin . $url,
             'width' => $width,
             'height' => (int) round($medium->height * $width / $medium->width),
             'alt' => $head->image['alt'] ?? '',
