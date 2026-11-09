@@ -77,10 +77,14 @@ final readonly class CheckPages implements Query
                     continue;
                 }
 
-                $excluded = null !== ($visibility[$id] ?? null)?->excludedFromSearchEnginesBy;
+                // A page with a password is left out like an excluded one (decision 0358).
+                $protected = null !== ($visibility[$id] ?? null)?->protectedBy;
+                $excluded = $protected || null !== ($visibility[$id] ?? null)?->excludedFromSearchEnginesBy;
                 $searchTitle = $translation->searchTitle($site, null === $node->data->parentId);
                 $hints = $excluded
-                    ? [new Hint('excluded', HintLevel::Notice, 'Excluded from search engines, so it is not in sitemap.xml either.')]
+                    ? [$protected
+                        ? new Hint('protected', HintLevel::Notice, 'Protected by a password, so search engines do not see it and it is not in sitemap.xml.')
+                        : new Hint('excluded', HintLevel::Notice, 'Excluded from search engines, so it is not in sitemap.xml either.')]
                     : self::hints($id, $searchTitle, '' !== $translation->seoTitle, $translation->description, $titles, $descriptions, $pages);
 
                 $checks[] = new PageCheck($id, $language, $node->status, $translation->title, $searchTitle, $translation->description, $excluded, $hints, $translation->seoTitle);

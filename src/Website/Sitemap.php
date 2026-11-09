@@ -96,7 +96,9 @@ final readonly class Sitemap
     {
         return null !== $this->outline->get($page)
             && null === $this->outline->lockedBy($page)
-            && null === $this->outline->excludedFromSearchEnginesBy($page);
+            && null === $this->outline->excludedFromSearchEnginesBy($page)
+            // A page with a password is not for search engines (decision 0358).
+            && null === $this->outline->protectedBy($page);
     }
 
     private static function escape(string $text): string

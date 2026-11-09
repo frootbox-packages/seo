@@ -8,6 +8,7 @@
 "Pages in this language appear here.": "Seiten in dieser Sprache erscheinen hier."
 "Notice": "Hinweis"
 "Excluded from search engines, so it is not in sitemap.xml either.": "Von Suchmaschinen ausgenommen und deshalb auch nicht in sitemap.xml."
+"Protected by a password, so search engines do not see it and it is not in sitemap.xml.": "Mit Passwort geschützt, deshalb sehen Suchmaschinen sie nicht, und sie steht nicht in sitemap.xml."
 "No description. Search engines then show some text of the page.": "Keine Beschreibung. Suchmaschinen zeigen dann irgendeinen Text der Seite."
 "The description has only {count} characters. 50 to 160 fit best.": "Die Beschreibung hat nur {count} Zeichen. Am besten passen 50 bis 160."
 "The description has {count} characters. From about 160, search engines cut it.": "Die Beschreibung hat {count} Zeichen. Ab etwa 160 schneiden Suchmaschinen sie ab."
